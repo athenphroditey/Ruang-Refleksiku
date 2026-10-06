@@ -67,7 +67,7 @@ body{background:
 <div class="container">
   <div class="topbar">
     <div class="brand"><div class="logo">🌱</div><div>Ruang Refleksiku</div></div>
-    <div class="pill" id="syncBadge">Versi online • sinkronisasi Supabase</div>
+    <div class="pill">Versi online • data tersimpan di Supabase</div>
   </div>
 
   <section id="home" class="screen active">
@@ -203,19 +203,18 @@ body{background:
     <div class="actions"><button class="btn primary" onclick="closeIndividual()">Tutup</button></div>
   </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const SUPABASE_URL='https://plvbhasiijxtabjqrhni.supabase.co';
+const SUPABASE_URL='https://plvbbasijjxtabjqrbni.supabase.co';
 const SUPABASE_KEY='sb_publishable_JbUHrrN-vA4c0Nmx4eURiA_znrAzsjq';
-const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
-async function testSupabaseConnection(){
-  try{
-    const {error}=await supabaseClient.from('reflections').select('id',{head:true,count:'exact'}).limit(1);
-    const badge=document.getElementById('syncBadge');
-    if(badge) badge.textContent=error?'Versi online • Supabase belum siap':'Versi online • Supabase terhubung';
-  }catch(e){const badge=document.getElementById('syncBadge');if(badge) badge.textContent='Versi online • koneksi Supabase gagal';}
+let teacherAccessToken=sessionStorage.getItem('rr_teacher_token')||'';
+async function sbFetch(path, options={}){
+  const headers={apikey:SUPABASE_KEY,'Content-Type':'application/json',...(options.headers||{})};
+  if(options.auth && teacherAccessToken) headers.Authorization='Bearer '+teacherAccessToken;
+  const res=await fetch(SUPABASE_URL+path,{...options,headers});
+  if(!res.ok){let msg='';try{msg=(await res.json()).message||''}catch(e){} throw new Error(msg||('HTTP '+res.status));}
+  if(res.status===204) return null;
+  const txt=await res.text(); return txt?JSON.parse(txt):null;
 }
-window.addEventListener('load',testSupabaseConnection);
 function toDb(x){return {nama:x.name,kelas:x.klass,no_absen:Number(x.no),mata_pelajaran:x.subject,tanggal:x.date,perasaan:x.emotion,alasan_perasaan:x.emotionWhy,pemahaman:Number(x.understanding),self_awareness:x.aSelf,self_management:x.aManage,social_awareness:x.aSocial,relationship_skills:x.aRelation,responsible_decision_making:x.aDecision,hambatan:x.obstacles||[],cara_mengatasi:x.coping,bantuan_dibutuhkan:x.helpNeed,target_pribadi:x.target,perkembangan_target:x.targetProgress,cerita_perkembangan:'',jenis_pesan_guru:x.msgType,pesan_guru:x.msg};}
 function fromDb(x){return {id:x.id,name:x.nama,klass:x.kelas,no:x.no_absen,subject:x.mata_pelajaran||'IPA',date:x.tanggal,studentKey:`${x.nama}|${x.kelas}|${x.no_absen}`.toLowerCase(),ts:new Date(x.created_at||x.tanggal).getTime(),emotion:x.perasaan,emotionWhy:x.alasan_perasaan||'',understanding:Number(x.pemahaman||0),aSelf:x.self_awareness||'',aManage:x.self_management||'',aSocial:x.social_awareness||'',aRelation:x.relationship_skills||'',aDecision:x.responsible_decision_making||'',obstacles:x.hambatan||[],coping:x.cara_mengatasi||'',helpNeed:x.bantuan_dibutuhkan||'',target:x.target_pribadi||'',targetProgress:x.perkembangan_target||'',msgType:x.jenis_pesan_guru||'Tidak ada',msg:x.pesan_guru||''};}
 const banks={
@@ -243,7 +242,7 @@ async function submitReflection(){
   const obs=[...document.querySelectorAll('#obstacles input:checked')].map(x=>x.value);
   const rec={...current,studentKey:keyStudent(),ts:Date.now(),emotion:chosen.emotion,emotionWhy:emotionWhy.value,understanding:chosen.understanding,qSelf:qSelf.textContent,aSelf:aSelf.value,qManage:qManage.textContent,aManage:aManage.value,qSocial:qSocial.textContent,aSocial:aSocial.value,qRelation:qRelation.textContent,aRelation:aRelation.value,qDecision:qDecision.textContent,aDecision:aDecision.value,obstacles:obs,coping:coping.value,helpNeed:helpNeed.value,target:target.value,targetProgress:targetProgress.value,msgType:teacherMsgType.value,msg:teacherMsg.value};
   try{
-    const {error}=await supabaseClient.from('reflections').insert(toDb(rec)); if(error) throw error;
+    await sbFetch('/rest/v1/reflections',{method:'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify(toDb(rec))});
     const local=loadAll(); local.push(rec); saveAll(local);
     doneEmotion.textContent=rec.emotion;doneUnderstand.textContent=rec.understanding+'/5';doneObstacle.textContent=rec.obstacles.slice(0,2).join(', ')||'Tidak ada';doneTarget.textContent=rec.target||'Belum ditulis';go('student-done');
   }catch(e){alert('Refleksi belum berhasil dikirim. Periksa koneksi internet lalu coba lagi.\n\n'+e.message);}
@@ -254,19 +253,17 @@ async function teacherLogin(){
   if(!email||!password){teacherLoginStatus.textContent='Isi email dan password guru.';return;}
   teacherLoginStatus.textContent='Memeriksa akun...';
   try{
-    const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});
-    if(error) throw error;
+    const data=await sbFetch('/auth/v1/token?grant_type=password',{method:'POST',body:JSON.stringify({email,password})});
+    teacherAccessToken=data.access_token; sessionStorage.setItem('rr_teacher_token',teacherAccessToken);
     teacherPassword.value='';teacherLoginStatus.textContent='';go('teacher');await renderDashboard();
-  }catch(e){teacherLoginStatus.textContent='Login gagal: '+(e.message||'email atau password tidak sesuai.');}
+  }catch(e){teacherLoginStatus.textContent='Email atau password tidak sesuai.';}
 }
-async function teacherLogout(){await supabaseClient.auth.signOut();go('home');}
+function teacherLogout(){teacherAccessToken='';sessionStorage.removeItem('rr_teacher_token');go('home');}
 let dashboardData=[];
 function filteredData(){let d=dashboardData;if(fClass.value!=='Semua kelas')d=d.filter(x=>x.klass===fClass.value);if(fSubject.value!=='Semua mapel')d=d.filter(x=>x.subject===fSubject.value);return d;}
 async function fetchDashboardData(){
-  const {data:sessionData}=await supabaseClient.auth.getSession();
-  if(!sessionData.session) throw new Error('Sesi guru belum aktif');
-  const {data:rows,error}=await supabaseClient.from('reflections').select('*').order('created_at',{ascending:false});
-  if(error) throw error;
+  if(!teacherAccessToken) throw new Error('Sesi guru belum aktif');
+  const rows=await sbFetch('/rest/v1/reflections?select=*&order=created_at.desc',{auth:true});
   dashboardData=(rows||[]).map(fromDb);
 }
 const emoColors={'Sangat nyaman':'#60a5fa','Nyaman':'#34d399','Biasa saja':'#fbbf24','Kesulitan':'#fb7185','Sangat kesulitan':'#a78bfa'};
@@ -307,10 +304,10 @@ function showIndividualAt(i){
 }
 function closeIndividual(){individualModal.classList.remove('open');}
 async function seedDemoData(){
-  const {data:sessionData}=await supabaseClient.auth.getSession(); if(!sessionData.session){alert('Login guru terlebih dahulu.');return;}
+  if(!teacherAccessToken){alert('Login guru terlebih dahulu.');return;}
   const names=['Aulia','Bima','Citra','Daffa','Eka','Fani','Gilang','Hana'];const emotions=['Nyaman','Nyaman','Sangat nyaman','Biasa saja','Kesulitan'];const obs=['Menghubungkan konsep dengan rumus','Memahami materi','Menjaga fokus','Berdiskusi dengan kelompok','Menyampaikan pendapat'];const dates=['2026-09-15','2026-09-22','2026-09-29','2026-10-06'];
   const rows=[];names.forEach((name,i)=>dates.forEach((date,j)=>{rows.push(toDb({name,klass:i%2?'VIII B':'VIII A',no:i+1,subject:'IPA',date,emotion:emotions[(i+j)%emotions.length],emotionWhy:'Pembelajaran cukup menarik dan saya bisa mengikuti kegiatan.',understanding:Math.min(5,2+((i+j)%4)),aSelf:'Saya lebih memahami konsep setelah melihat contoh dan berdiskusi.',aManage:'Saya mencoba lagi dan bertanya ketika bingung.',aSocial:'Teman membantu menjelaskan bagian yang belum saya pahami.',aRelation:'Kami membagi tugas dan saling mendengarkan.',aDecision:'Kelompok memilih mencoba ulang langkah percobaan agar hasil lebih jelas.',obstacles:i%4===0?[obs[(i+j)%obs.length],obs[(i+j+1)%obs.length]]:[obs[(i+j)%obs.length]],coping:i%3===0?'Bertanya kepada teman dan guru':'Mencoba kembali dan berdiskusi',helpNeed:i%5===0?'Penjelasan ulang contoh rumus':'',target:'Lebih berani bertanya ketika belum paham',targetProgress:'Mulai berkembang',msgType:i%7===0?'Saya membutuhkan bantuan memahami materi':'Tidak ada',msg:i%7===0?'Saya masih bingung menghubungkan konsep dengan rumus.':''}) )}));
-  try{const {error}=await supabaseClient.from('reflections').insert(rows); if(error) throw error; await renderDashboard();alert('Data demo berhasil ditambahkan ke database Supabase.');}catch(e){alert('Data demo gagal ditambahkan: '+e.message);}
+  try{await sbFetch('/rest/v1/reflections',{method:'POST',auth:true,headers:{Prefer:'return=minimal'},body:JSON.stringify(rows)});await renderDashboard();alert('Data demo berhasil ditambahkan ke database Supabase.');}catch(e){alert('Data demo gagal ditambahkan: '+e.message);}
 }
 </script>
 </body>
