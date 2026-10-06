@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ruang Refleksiku</title>
+<style>
+:root{
+  --bg:#f7fafc;--ink:#253044;--muted:#6b7280;--blue:#dbeafe;--blue2:#3b82f6;--sage:#dcfce7;--sage2:#16a34a;
+  --lav:#ede9fe;--lav2:#7c3aed;--amber:#fef3c7;--amber2:#d97706;--rose:#ffe4e6;--rose2:#e11d48;--card:#ffffff;
+  --line:#e5e7eb;--shadow:0 12px 35px rgba(37,48,68,.08);--radius:22px;
+}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,#f8fbff 0,#f7fafc 55%,#fdfcf7 100%);color:var(--ink)}
+button,input,select,textarea{font:inherit} button{cursor:pointer}
+.container{max-width:1180px;margin:auto;padding:28px 20px 64px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:22px}.brand{display:flex;align-items:center;gap:12px;font-weight:800}.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#bfdbfe,#ddd6fe);display:grid;place-items:center;font-size:22px;box-shadow:var(--shadow)}
+.pill{background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 12px;color:var(--muted);font-size:13px}.hero{background:linear-gradient(135deg,#eff6ff,#f5f3ff 55%,#f0fdf4);border:1px solid #e7ecf2;border-radius:30px;padding:48px;box-shadow:var(--shadow);text-align:center}.hero h1{font-size:clamp(36px,6vw,68px);margin:0 0 8px;letter-spacing:-.03em}.hero p{font-size:18px;color:var(--muted);max-width:760px;margin:0 auto 30px;line-height:1.6}.choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;max-width:760px;margin:auto}.choice{border:0;border-radius:24px;padding:26px;background:#fff;box-shadow:0 8px 24px rgba(37,48,68,.08);text-align:left;transition:.2s}.choice:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(37,48,68,.12)}.choice .emoji{font-size:36px}.choice h3{font-size:22px;margin:10px 0 5px}.choice p{font-size:14px;margin:0;color:var(--muted)}
+.screen{display:none}.screen.active{display:block}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}.grid{display:grid;gap:18px}.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}.section-title{display:flex;align-items:center;gap:10px;margin:0 0 14px}.section-title .ico{font-size:28px}.section-title h2,.section-title h3{margin:0}.sub{color:var(--muted);line-height:1.55}.form-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field{display:flex;flex-direction:column;gap:7px}.field label{font-weight:700;font-size:14px}.field input,.field select,.field textarea{border:1px solid #d8dee8;background:#fff;border-radius:14px;padding:12px 14px;outline:none}.field textarea{min-height:110px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#93c5fd;box-shadow:0 0 0 4px #eff6ff}.actions{display:flex;justify-content:space-between;gap:12px;margin-top:18px}.btn{border:0;border-radius:14px;padding:12px 18px;font-weight:800}.btn.primary{background:#2563eb;color:white}.btn.secondary{background:#eef2f7;color:#344054}.btn.sage{background:#16a34a;color:#fff}.btn.danger{background:#e11d48;color:white}.btn.ghost{background:white;border:1px solid var(--line)}
+.progress-wrap{margin:12px 0 22px}.progress-label{display:flex;justify-content:space-between;color:var(--muted);font-size:13px;margin-bottom:7px}.progress{height:10px;border-radius:999px;background:#edf0f4;overflow:hidden}.progress>span{display:block;height:100%;background:linear-gradient(90deg,#60a5fa,#8b5cf6);width:0;transition:.25s}.emoji-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.emo{border:1px solid var(--line);border-radius:18px;background:#fff;padding:16px 10px;text-align:center;transition:.15s}.emo .face{font-size:34px}.emo small{display:block;color:var(--muted);margin-top:6px}.emo.selected{border-color:#93c5fd;background:#eff6ff;box-shadow:0 0 0 3px #dbeafe}.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.scale button{border:1px solid var(--line);background:white;border-radius:16px;padding:14px 8px}.scale button.selected{background:#ede9fe;border-color:#c4b5fd;color:#6d28d9;font-weight:800}.q-card{border-radius:22px;padding:22px;border:1px solid var(--line);background:white}.q-card h3{margin:0 0 6px}.q-card p{color:var(--muted)}.q-self{background:#fff7ed}.q-manage{background:#f0fdf4}.q-social{background:#eff6ff}.q-relation{background:#f5f3ff}.q-decision{background:#fefce8}.checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.check{display:flex;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:#fff}.summary-box{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.stat{padding:18px;border-radius:18px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}.stat .k{font-size:13px;color:var(--muted)}.stat .v{font-size:28px;font-weight:900;margin-top:5px}.stat .hint{font-size:12px;color:var(--muted);margin-top:4px}.dashboard-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px}.chart-card{min-height:320px}.donut-wrap{display:flex;align-items:center;justify-content:center;gap:26px;height:240px}.donut{width:170px;height:170px;border-radius:50%;background:conic-gradient(#60a5fa 0 20%,#34d399 20% 65%,#fbbf24 65% 82%,#fb7185 82% 94%,#a78bfa 94% 100%);position:relative}.donut:after{content:"";position:absolute;inset:34px;background:white;border-radius:50%}.legend{display:grid;gap:8px;font-size:13px}.legend-row{display:flex;align-items:center;gap:8px}.dot{width:10px;height:10px;border-radius:50%}.bar-list{display:grid;gap:12px;margin-top:10px}.bar-row{display:grid;grid-template-columns:180px 1fr 34px;gap:10px;align-items:center;font-size:13px}.bar-bg{height:12px;background:#edf1f5;border-radius:999px;overflow:hidden}.bar-fill{height:100%;background:linear-gradient(90deg,#60a5fa,#818cf8);border-radius:999px}.line-svg{width:100%;height:220px}.case-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}.case-card{padding:16px;border-radius:18px;border:1px solid var(--line);background:white}.case-card b{display:block;margin-bottom:8px}.case-card p{font-size:13px;color:var(--muted);line-height:1.45}.insight{background:linear-gradient(135deg,#fffbeb,#fff7ed);border:1px solid #fde68a}.alert{background:#fff1f2;border:1px solid #fecdd3}.student-list{display:grid;gap:10px}.student-row{display:flex;justify-content:space-between;align-items:center;padding:12px;border:1px solid var(--line);border-radius:14px;background:#fff}.tag{font-size:12px;border-radius:999px;padding:5px 9px;background:#eef2ff;color:#4338ca}.timeline{display:grid;gap:12px}.timeline-item{border-left:4px solid #bfdbfe;padding:10px 14px;background:white;border-radius:0 14px 14px 0;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.hidden{display:none!important}.small{font-size:13px;color:var(--muted)}.footer-note{margin-top:18px;color:var(--muted);font-size:12px;text-align:center}
+@media(max-width:900px){.grid-4,.grid-3,.case-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboard-grid{grid-template-columns:1fr}.summary-box{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding:32px 22px}.choice-grid{grid-template-columns:1fr}.emoji-grid{grid-template-columns:repeat(5,1fr)}.bar-row{grid-template-columns:130px 1fr 30px}}
+@media(max-width:620px){.container{padding:18px 12px 42px}.grid-2,.form-row,.checks,.summary-box,.case-grid{grid-template-columns:1fr}.emoji-grid{grid-template-columns:repeat(2,1fr)}.scale{grid-template-columns:repeat(5,1fr)}.hero h1{font-size:40px}.donut-wrap{flex-direction:column;height:auto;padding:20px 0}.bar-row{grid-template-columns:1fr}.bar-row .num{display:none}.topbar{align-items:flex-start;flex-direction:column}}
+
+/* ===== Infographic-style refresh ===== */
+body{background:
+  radial-gradient(circle at 8% 6%,rgba(191,219,254,.55),transparent 22%),
+  radial-gradient(circle at 92% 10%,rgba(220,252,231,.6),transparent 24%),
+  radial-gradient(circle at 85% 88%,rgba(254,243,199,.55),transparent 24%),
+  linear-gradient(180deg,#fbfdff 0%,#f7fbff 42%,#fffdf8 100%)}
+.container{max-width:1240px}
+.topbar{background:rgba(255,255,255,.82);backdrop-filter:blur(12px);border:1px solid rgba(229,231,235,.9);border-radius:22px;padding:10px 14px;box-shadow:0 12px 30px rgba(37,48,68,.06);position:sticky;top:10px;z-index:20}
+.brand{font-size:20px;color:#153a75}.logo{background:linear-gradient(135deg,#dbeafe,#dcfce7);border:1px solid #dbeafe}
+.hero{position:relative;overflow:hidden;text-align:left;padding:54px;min-height:520px;background:linear-gradient(135deg,#fffdfb 0%,#f9fcff 46%,#effaf4 100%)}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;filter:blur(0);opacity:.55}.hero:before{width:280px;height:280px;background:#dbeafe;right:-80px;top:-90px}.hero:after{width:220px;height:220px;background:#dcfce7;right:80px;bottom:-110px}
+.hero>*{position:relative;z-index:2}.hero h1{max-width:560px;color:#1f3f7a;font-weight:900;line-height:.98;text-shadow:0 2px 0 rgba(255,255,255,.6)}
+.hero h1::after{content:""}.hero .pill{background:#ffffffc9}
+.hero p{margin:0 0 26px;max-width:600px;text-align:left;color:#5b6472}
+.choice-grid{margin:26px 0 0;max-width:720px}.choice{min-height:155px;border:1px solid rgba(255,255,255,.9);position:relative;overflow:hidden}
+.choice:before{content:"";position:absolute;inset:auto -40px -55px auto;width:130px;height:130px;border-radius:50%;background:rgba(255,255,255,.4)}
+.choice:nth-child(1){background:linear-gradient(135deg,#dbeafe,#c7d2fe)}.choice:nth-child(2){background:linear-gradient(135deg,#dcfce7,#bbf7d0)}
+.choice h3{color:#16345e}.choice p{color:#42526a}.choice .emoji{filter:drop-shadow(0 4px 6px rgba(0,0,0,.08))}
+.card{background:rgba(255,255,255,.92);border:1px solid #e8edf4;box-shadow:0 12px 34px rgba(37,48,68,.075)}
+.section-title{padding-bottom:10px;border-bottom:1px dashed #d9e2ec}.section-title h2,.section-title h3{color:#153a75}
+.q-card{position:relative;overflow:hidden;border-width:1px}.q-card:after{content:"";position:absolute;width:120px;height:120px;border-radius:50%;right:-45px;bottom:-60px;background:rgba(255,255,255,.35)}
+.q-self{background:linear-gradient(135deg,#fff1f2,#fff7ed)}.q-manage{background:linear-gradient(135deg,#ecfdf5,#f0fdf4)}.q-social{background:linear-gradient(135deg,#eff6ff,#eef2ff)}.q-relation{background:linear-gradient(135deg,#f5f3ff,#faf5ff)}.q-decision{background:linear-gradient(135deg,#fefce8,#fff7ed)}
+.emo{min-height:120px;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#fff,#fbfdff)}.emo .face{font-size:42px}.emo.selected{transform:translateY(-2px)}
+.scale button{min-height:82px;background:linear-gradient(180deg,#fff,#fafaff)}
+.stat{border-radius:22px;position:relative;overflow:hidden}.stat:after{content:"";position:absolute;width:80px;height:80px;border-radius:50%;right:-25px;bottom:-30px;background:rgba(99,102,241,.07)}
+.summary-box .stat:nth-child(1){background:linear-gradient(135deg,#ecfeff,#eff6ff)}.summary-box .stat:nth-child(2){background:linear-gradient(135deg,#eef2ff,#f5f3ff)}.summary-box .stat:nth-child(3){background:linear-gradient(135deg,#fffbeb,#fff7ed)}.summary-box .stat:nth-child(4){background:linear-gradient(135deg,#fff1f2,#fdf2f8)}
+.chart-card{background:linear-gradient(180deg,#fff,#fbfdff)}
+.case-card{box-shadow:0 6px 18px rgba(37,48,68,.045)}.case-card:nth-child(1){background:#fff7ed}.case-card:nth-child(2){background:#f0fdf4}.case-card:nth-child(3){background:#eff6ff}.case-card:nth-child(4){background:#f5f3ff}.case-card:nth-child(5){background:#fefce8}
+.btn{box-shadow:0 6px 14px rgba(37,48,68,.08)}.btn.primary{background:linear-gradient(135deg,#3b82f6,#6366f1)}.btn.sage{background:linear-gradient(135deg,#22c55e,#16a34a)}
+.progress{height:12px}.progress>span{background:linear-gradient(90deg,#60a5fa,#8b5cf6,#34d399)}
+.timeline-item{box-shadow:0 5px 16px rgba(37,48,68,.04)}
+.insight{background:linear-gradient(135deg,#fff8db,#fff1e6)}.alert{background:linear-gradient(135deg,#fff1f2,#fff7f8)}
+/* decorative illustration blocks */
+.hero-art{position:absolute;right:42px;top:86px;width:350px;height:330px;z-index:1;pointer-events:none}
+.hero-art .blob{position:absolute;inset:0;border-radius:46% 54% 42% 58%/55% 42% 58% 45%;background:linear-gradient(145deg,#e0f2fe,#ede9fe 55%,#dcfce7);box-shadow:inset 0 0 0 1px rgba(255,255,255,.8)}
+.hero-art .student{position:absolute;left:72px;top:66px;width:210px;height:210px;border-radius:42px;background:linear-gradient(180deg,#fff,#f9fafb);border:1px solid #e5e7eb;box-shadow:0 18px 36px rgba(37,48,68,.12);display:grid;place-items:center;font-size:96px}
+.hero-art .note{position:absolute;padding:10px 14px;border-radius:14px;background:#fff;box-shadow:0 8px 20px rgba(37,48,68,.1);font-weight:800;font-size:13px}.hero-art .n1{right:8px;top:38px;transform:rotate(3deg);background:#fef3c7}.hero-art .n2{left:0;bottom:32px;transform:rotate(-4deg);background:#dcfce7}.hero-art .n3{right:0;bottom:64px;transform:rotate(4deg);background:#fce7f3}
+.student-shell{display:grid;grid-template-columns:220px 1fr;gap:18px}.student-side{background:linear-gradient(180deg,#ffffff,#f7fbff);border:1px solid var(--line);border-radius:24px;padding:16px;box-shadow:var(--shadow);height:max-content;position:sticky;top:92px}.student-side h4{margin:4px 0 14px;color:#153a75}.step-chip{display:flex;align-items:center;gap:10px;padding:10px;border-radius:14px;margin:7px 0;color:#667085}.step-chip.active{background:#eff6ff;color:#1d4ed8;font-weight:800}.step-dot{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#eef2f7;font-size:12px;font-weight:900}.step-chip.active .step-dot{background:#3b82f6;color:#fff}
+.teacher-shell{display:grid;grid-template-columns:210px 1fr;gap:18px}.teacher-side{background:#fff;border:1px solid var(--line);border-radius:24px;padding:16px;box-shadow:var(--shadow);height:max-content;position:sticky;top:92px}.teacher-nav{display:grid;gap:8px}.teacher-nav div{padding:11px 12px;border-radius:13px;color:#667085}.teacher-nav div:first-child{background:#eef2ff;color:#4338ca;font-weight:800}
+.detail-modal{position:fixed;inset:0;background:rgba(31,41,55,.48);display:none;align-items:center;justify-content:center;padding:20px;z-index:9999}.detail-modal.open{display:flex}.detail-panel{width:min(760px,100%);max-height:88vh;overflow:auto;background:#fff;border-radius:26px;padding:24px;box-shadow:0 24px 70px rgba(31,41,55,.28)}.detail-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:16px}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.detail-item{background:#f8fafc;border:1px solid var(--line);border-radius:16px;padding:14px}.detail-item.full{grid-column:1/-1}.detail-item b{display:block;margin-bottom:6px;color:#374151}.close-x{border:0;background:#f3f4f6;border-radius:12px;width:40px;height:40px;font-size:20px;cursor:pointer}@media(max-width:650px){.detail-grid{grid-template-columns:1fr}.detail-item.full{grid-column:auto}}
+@media(max-width:980px){.hero-art{display:none}.hero{min-height:auto}.student-shell,.teacher-shell{grid-template-columns:1fr}.student-side,.teacher-side{position:static}.student-side{display:none}}
+
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="topbar">
+    <div class="brand"><div class="logo">🌱</div><div>Ruang Refleksiku</div></div>
+    <div class="pill">Prototipe lokal • data tersimpan di browser ini</div>
+  </div>
+
+  <section id="home" class="screen active">
+    <div class="hero">
+      <div class="hero-art"><div class="blob"></div><div class="student">🧑‍🎓</div><div class="note n1">Kenali dirimu</div><div class="note n2">Hargai prosesmu</div><div class="note n3">Tentukan langkahmu</div></div>
+      <div class="pill" style="display:inline-block;margin-bottom:14px">Jurnal refleksi pembelajaran berbasis PSE–CASEL</div>
+      <h1>Ruang Refleksiku</h1>
+      <p>Kenali dirimu, hargai prosesmu, dan tentukan langkahmu. Refleksi singkat hari ini membantu pembelajaran berikutnya menjadi lebih bermakna.</p>
+      <div class="choice-grid">
+        <button class="choice" onclick="go('student-id')"><div class="emoji">🎒</div><h3>Saya Siswa</h3><p>Isi jurnal refleksi, catat hambatan, dan lihat perkembanganmu.</p></button>
+        <button class="choice" onclick="go('teacher-login')"><div class="emoji">👩‍🏫</div><h3>Saya Guru</h3><p>Lihat ringkasan kelas, diagram, insight, dan tindak lanjut.</p></button>
+      </div>
+    </div>
+  </section>
+
+  <section id="student-id" class="screen">
+    <div class="student-shell"><aside class="student-side"><h4>🌱 Perjalanan Refleksi</h4><div class="step-chip active"><span class="step-dot">1</span>Identitas</div><div class="step-chip"><span class="step-dot">2</span>Check-in</div><div class="step-chip"><span class="step-dot">3</span>Refleksi</div><div class="step-chip"><span class="step-dot">4</span>Hambatan</div><div class="step-chip"><span class="step-dot">5</span>Target</div><div class="step-chip"><span class="step-dot">6</span>Selesai</div></aside><div class="card">
+      <div class="section-title"><span class="ico">🎒</span><div><h2>Identitas Siswa</h2><div class="sub">Isi identitas sebelum memulai refleksi.</div></div></div>
+      <div class="form-row">
+        <div class="field"><label>Nama lengkap</label><input id="sName" placeholder="Contoh: Aulia Rahma" /></div>
+        <div class="field"><label>Kelas</label><select id="sClass"><option>VII A</option><option>VII B</option><option>VII C</option><option>VII D</option><option>VII E</option><option>VII F</option><option>VII G</option><option>VII H</option><option>VII I</option><option>VII J</option><option>VIII A</option><option>VIII B</option><option>VIII C</option><option>VIII D</option><option>VIII E</option><option>VIII F</option><option>VIII G</option><option>VIII H</option><option>VIII I</option><option>VIII J</option><option>IX A</option><option>IX B</option><option>IX C</option><option>IX D</option><option>IX E</option><option>IX F</option><option>IX G</option><option>IX H</option><option>IX I</option><option>IX J</option></select></div>
+        <div class="field"><label>Nomor absen</label><input id="sNo" type="number" min="1" placeholder="12" /></div>
+        <div class="field"><label>Mata pelajaran</label><input id="sSubject" value="IPA" /></div>
+      </div>
+      <div class="actions"><button class="btn secondary" onclick="go('home')">Kembali</button><button class="btn primary" onclick="startReflection()">Mulai Refleksi</button></div>
+    </div>
+  </section>
+
+  <section id="student-reflect" class="screen">
+    <div class="progress-wrap"><div class="progress-label"><span id="stepText">Langkah 1 dari 7</span><span id="studentMini"></span></div><div class="progress"><span id="prog"></span></div></div>
+    <div id="step1" class="step card">
+      <div class="section-title"><span class="ico">😊</span><div><h2>Check-in Hari Ini</h2><div class="sub">Bagaimana pengalaman belajarmu setelah pembelajaran selesai?</div></div></div>
+      <div class="emoji-grid" id="emotionGrid">
+        <button class="emo" data-v="Sangat nyaman"><span class="face">😄</span><small>Sangat nyaman</small></button>
+        <button class="emo" data-v="Nyaman"><span class="face">🙂</span><small>Nyaman</small></button>
+        <button class="emo" data-v="Biasa saja"><span class="face">😐</span><small>Biasa saja</small></button>
+        <button class="emo" data-v="Kesulitan"><span class="face">😕</span><small>Kesulitan</small></button>
+        <button class="emo" data-v="Sangat kesulitan"><span class="face">😣</span><small>Sangat kesulitan</small></button>
+      </div>
+      <div class="field" style="margin-top:16px"><label>Apa yang membuatmu merasa demikian?</label><textarea id="emotionWhy" placeholder="Tulis secukupnya..."></textarea></div>
+      <div class="field" style="margin-top:16px"><label>Seberapa baik kamu memahami pembelajaran hari ini?</label><div class="scale" id="scaleGrid"><button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4</button><button data-v="5">5</button></div><div class="small">1 = masih membutuhkan banyak bantuan • 5 = sangat memahami dan mampu menjelaskan</div></div>
+      <div class="actions"><button class="btn secondary" onclick="go('student-id')">Kembali</button><button class="btn primary" onclick="nextStep(2)">Lanjut</button></div>
+    </div>
+
+    <div id="step2" class="step card hidden">
+      <div class="section-title"><span class="ico">🪞</span><div><h2>Mengenal Diriku</h2><div class="sub">Self-Awareness</div></div></div>
+      <div class="q-card q-self"><h3 id="qSelf"></h3><textarea id="aSelf" style="width:100%;min-height:130px;margin-top:12px;border:1px solid var(--line);border-radius:14px;padding:12px" placeholder="Ceritakan dengan jujur dan singkat..."></textarea></div>
+      <div class="actions"><button class="btn secondary" onclick="nextStep(1)">Kembali</button><button class="btn primary" onclick="nextStep(3)">Lanjut</button></div>
+    </div>
+
+    <div id="step3" class="step card hidden">
+      <div class="section-title"><span class="ico">🌱</span><div><h2>Mengelola Diriku</h2><div class="sub">Self-Management</div></div></div>
+      <div class="q-card q-manage"><h3 id="qManage"></h3><textarea id="aManage" style="width:100%;min-height:130px;margin-top:12px;border:1px solid var(--line);border-radius:14px;padding:12px"></textarea></div>
+      <div class="actions"><button class="btn secondary" onclick="nextStep(2)">Kembali</button><button class="btn primary" onclick="nextStep(4)">Lanjut</button></div>
+    </div>
+
+    <div id="step4" class="step card hidden">
+      <div class="grid grid-2">
+        <div class="q-card q-social"><div class="section-title"><span class="ico">💙</span><div><h3>Memahami Orang Lain</h3><div class="sub">Social Awareness</div></div></div><b id="qSocial"></b><textarea id="aSocial" style="width:100%;min-height:140px;margin-top:12px;border:1px solid var(--line);border-radius:14px;padding:12px"></textarea></div>
+        <div class="q-card q-relation"><div class="section-title"><span class="ico">🤝</span><div><h3>Bertumbuh Bersama</h3><div class="sub">Relationship Skills</div></div></div><b id="qRelation"></b><textarea id="aRelation" style="width:100%;min-height:140px;margin-top:12px;border:1px solid var(--line);border-radius:14px;padding:12px"></textarea></div>
+      </div>
+      <div class="actions"><button class="btn secondary" onclick="nextStep(3)">Kembali</button><button class="btn primary" onclick="nextStep(5)">Lanjut</button></div>
+    </div>
+
+    <div id="step5" class="step card hidden">
+      <div class="section-title"><span class="ico">🧭</span><div><h2>Menentukan Langkah</h2><div class="sub">Responsible Decision-Making</div></div></div>
+      <div class="q-card q-decision"><h3 id="qDecision"></h3><textarea id="aDecision" style="width:100%;min-height:130px;margin-top:12px;border:1px solid var(--line);border-radius:14px;padding:12px"></textarea></div>
+      <div class="actions"><button class="btn secondary" onclick="nextStep(4)">Kembali</button><button class="btn primary" onclick="nextStep(6)">Lanjut</button></div>
+    </div>
+
+    <div id="step6" class="step card hidden">
+      <div class="section-title"><span class="ico">🚧</span><div><h2>Hambatanku Hari Ini</h2><div class="sub">Pilih yang paling sesuai. Kamu boleh memilih lebih dari satu.</div></div></div>
+      <div class="checks" id="obstacles"></div>
+      <div class="grid grid-2" style="margin-top:16px">
+        <div class="field"><label>Apa yang sudah kamu lakukan untuk mengatasinya?</label><textarea id="coping"></textarea></div>
+        <div class="field"><label>Apa bantuan yang kamu butuhkan?</label><textarea id="helpNeed"></textarea></div>
+      </div>
+      <div class="actions"><button class="btn secondary" onclick="nextStep(5)">Kembali</button><button class="btn primary" onclick="nextStep(7)">Lanjut</button></div>
+    </div>
+
+    <div id="step7" class="step card hidden">
+      <div class="section-title"><span class="ico">🎯</span><div><h2>Langkah Kecilku Selanjutnya</h2><div class="sub">Tentukan satu target kecil yang realistis.</div></div></div>
+      <div id="prevTargetBox" class="card hidden" style="background:#f0fdf4;margin-bottom:16px;box-shadow:none"><b>Target refleksi sebelumnya:</b><div id="prevTarget" style="margin:6px 0 10px"></div><label class="small">Bagaimana perkembangannya?</label><select id="targetProgress" style="margin-top:6px;width:100%;padding:10px;border-radius:12px;border:1px solid var(--line)"><option>Mulai berkembang</option><option>Sudah tercapai</option><option>Masih perlu latihan</option></select></div>
+      <div class="field"><label>Satu hal yang ingin kamu lakukan lebih baik pada pembelajaran berikutnya adalah...</label><textarea id="target"></textarea></div>
+      <div class="field" style="margin-top:14px"><label>Apakah ada sesuatu yang ingin kamu sampaikan kepada guru?</label><select id="teacherMsgType"><option>Tidak ada</option><option>Saya membutuhkan bantuan memahami materi</option><option>Saya ingin membicarakan kegiatan kelompok</option><option>Saya memiliki pertanyaan tentang pembelajaran</option><option>Saya ingin berbicara dengan guru secara pribadi</option></select></div>
+      <div class="field" style="margin-top:14px"><label>Ceritakan jika kamu merasa nyaman.</label><textarea id="teacherMsg"></textarea></div>
+      <div class="actions"><button class="btn secondary" onclick="nextStep(6)">Kembali</button><button class="btn sage" onclick="submitReflection()">Kirim Refleksi</button></div>
+    </div>
+  </section>
+
+  <section id="student-done" class="screen">
+    <div class="card" style="text-align:center"><div style="font-size:54px">🌱</div><h2>Refleksimu sudah tersimpan</h2><p class="sub">Setiap langkah kecil adalah bagian dari proses bertumbuh.</p></div>
+    <div class="summary-box" style="margin-top:18px">
+      <div class="stat"><div class="k">😊 Perasaanku</div><div class="v" style="font-size:20px" id="doneEmotion"></div></div>
+      <div class="stat"><div class="k">🧠 Pemahamanku</div><div class="v" id="doneUnderstand"></div><div class="hint">self-rating 1–5</div></div>
+      <div class="stat"><div class="k">🚧 Hambatan</div><div class="v" style="font-size:16px" id="doneObstacle"></div></div>
+      <div class="stat"><div class="k">🎯 Target</div><div class="v" style="font-size:16px" id="doneTarget"></div></div>
+    </div>
+    <div class="actions"><button class="btn secondary" onclick="go('home')">Selesai</button><button class="btn primary" onclick="showStudentJourney()">Lihat Perjalanan Refleksiku</button></div>
+  </section>
+
+  <section id="student-journey" class="screen">
+    <div class="card"><div class="section-title"><span class="ico">📖</span><div><h2>Perjalanan Refleksiku</h2><div class="sub">Riwayat refleksi yang tersimpan di browser ini.</div></div></div><div id="journeyStats" class="summary-box"></div><div id="journeyTimeline" class="timeline" style="margin-top:18px"></div><div class="actions"><button class="btn secondary" onclick="go('home')">Kembali ke Beranda</button></div></div>
+  </section>
+
+  <section id="teacher-login" class="screen">
+    <div class="card" style="max-width:520px;margin:auto"><div class="section-title"><span class="ico">🔐</span><div><h2>Akses Guru</h2><div class="sub">Masuk menggunakan akun guru yang terdaftar.</div></div></div><div class="field"><label>Email Guru</label><input id="teacherEmail" type="email" placeholder="nama@email.com" autocomplete="username" /></div><div class="field"><label>Password</label><input id="teacherPassword" type="password" placeholder="Masukkan password" autocomplete="current-password" /></div><div id="teacherLoginStatus" class="small" style="margin-top:8px"></div><div class="actions"><button class="btn secondary" onclick="go('home')">Kembali</button><button class="btn primary" onclick="teacherLogin()">Masuk</button></div></div>
+  </section>
+
+  <section id="teacher" class="screen">
+    <div class="card" style="margin-bottom:18px"><div style="display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap"><div><h2 style="margin:0">Dashboard Refleksi Kelas</h2><div class="sub">Visualisasi ini membantu membaca kecenderungan kelas, bukan mendiagnosis siswa.</div></div><div style="display:flex;gap:8px;flex-wrap:wrap"><select id="fClass" onchange="renderDashboard()"><option>Semua kelas</option><option>VII A</option><option>VII B</option><option>VII C</option><option>VII D</option><option>VII E</option><option>VII F</option><option>VII G</option><option>VII H</option><option>VII I</option><option>VII J</option><option>VIII A</option><option>VIII B</option><option>VIII C</option><option>VIII D</option><option>VIII E</option><option>VIII F</option><option>VIII G</option><option>VIII H</option><option>VIII I</option><option>VIII J</option><option>IX A</option><option>IX B</option><option>IX C</option><option>IX D</option><option>IX E</option><option>IX F</option><option>IX G</option><option>IX H</option><option>IX I</option><option>IX J</option></select><select id="fSubject" onchange="renderDashboard()"><option>Semua mapel</option><option>IPA</option></select><button class="btn ghost" onclick="seedDemoData()">Isi Data Demo</button><button class="btn secondary" onclick="teacherLogout()">Keluar</button></div></div></div>
+    <div id="teacherStats" class="summary-box"></div>
+    <div class="dashboard-grid" style="margin-top:18px">
+      <div class="card chart-card"><div class="section-title"><span class="ico">🍩</span><div><h3>Kondisi Belajar Hari Ini</h3><div class="sub">Distribusi check-in siswa.</div></div></div><div id="emotionChart" class="donut-wrap"></div></div>
+      <div class="card chart-card"><div class="section-title"><span class="ico">📊</span><div><h3>Hambatan Belajar</h3><div class="sub">Hambatan yang paling banyak dilaporkan.</div></div></div><div id="obstacleChart" class="bar-list"></div></div>
+      <div class="card chart-card"><div class="section-title"><span class="ico">🧠</span><div><h3>Persepsi Siswa terhadap Pemahamannya</h3><div class="sub">Self-rating 1–5, bukan nilai akademik.</div></div></div><div id="understandingChart" class="bar-list"></div></div>
+      <div class="card chart-card"><div class="section-title"><span class="ico">📈</span><div><h3>Perkembangan Antarpertemuan</h3><div class="sub">Rata-rata self-rating berdasarkan tanggal.</div></div></div><div id="trendChart"></div></div>
+    </div>
+    <div class="card" style="margin-top:18px"><div class="section-title"><span class="ico">🧩</span><div><h3>Ringkasan 5 Kompetensi CASEL</h3><div class="sub">Tema refleksi, bukan skor psikologis.</div></div></div><div id="caseSummary" class="case-grid"></div></div>
+    <div class="grid grid-2" style="margin-top:18px">
+      <div class="card insight"><div class="section-title"><span class="ico">💡</span><div><h3>Insight Refleksi Hari Ini</h3><div class="sub">Ringkasan otomatis berbasis respons yang tersimpan.</div></div></div><div id="insightText"></div></div>
+      <div class="card alert"><div class="section-title"><span class="ico">🔔</span><div><h3>Perlu Ditindaklanjuti</h3><div class="sub">Siswa yang secara eksplisit meminta bantuan.</div></div></div><div id="followups" class="student-list"></div></div>
+    </div>
+    <div class="card" style="margin-top:18px"><div class="section-title"><span class="ico">📚</span><div><h3>Respons Individual</h3><div class="sub">Klik siswa untuk melihat refleksi terakhirnya.</div></div></div><div id="individuals" class="student-list"></div></div>
+  </section>
+</div>
+
+
+<div id="individualModal" class="detail-modal" onclick="if(event.target===this)closeIndividual()">
+  <div class="detail-panel">
+    <div class="detail-head"><div><h2 id="detailName" style="margin:0 0 4px">Refleksi Siswa</h2><div id="detailMeta" class="sub"></div></div><button class="close-x" onclick="closeIndividual()" aria-label="Tutup">×</button></div>
+    <div id="detailBody" class="detail-grid"></div>
+    <div class="actions"><button class="btn primary" onclick="closeIndividual()">Tutup</button></div>
+  </div>
+</div>
+<script>
+const SUPABASE_URL='https://plvbhasiijxtabjqrhni.supabase.co';
+const SUPABASE_KEY='sb_publishable_JbUHrrN-vA4c0Nmx4eURiA_znrAzsjq';
+let teacherAccessToken=sessionStorage.getItem('rr_teacher_token')||'';
+async function sbFetch(path, options={}){
+  const headers={apikey:SUPABASE_KEY,'Content-Type':'application/json',...(options.headers||{})};
+  if(options.auth && teacherAccessToken) headers.Authorization='Bearer '+teacherAccessToken;
+  const res=await fetch(SUPABASE_URL+path,{...options,headers});
+  if(!res.ok){let msg='';try{msg=(await res.json()).message||''}catch(e){} throw new Error(msg||('HTTP '+res.status));}
+  if(res.status===204) return null;
+  const txt=await res.text(); return txt?JSON.parse(txt):null;
+}
+function toDb(x){return {nama:x.name,kelas:x.klass,no_absen:Number(x.no),mata_pelajaran:x.subject,tanggal:x.date,perasaan:x.emotion,alasan_perasaan:x.emotionWhy,pemahaman:Number(x.understanding),self_awareness:x.aSelf,self_management:x.aManage,social_awareness:x.aSocial,relationship_skills:x.aRelation,responsible_decision_making:x.aDecision,hambatan:x.obstacles||[],cara_mengatasi:x.coping,bantuan_dibutuhkan:x.helpNeed,target_pribadi:x.target,perkembangan_target:x.targetProgress,cerita_perkembangan:'',jenis_pesan_guru:x.msgType,pesan_guru:x.msg};}
+function fromDb(x){return {id:x.id,name:x.nama,klass:x.kelas,no:x.no_absen,subject:x.mata_pelajaran||'IPA',date:x.tanggal,studentKey:`${x.nama}|${x.kelas}|${x.no_absen}`.toLowerCase(),ts:new Date(x.created_at||x.tanggal).getTime(),emotion:x.perasaan,emotionWhy:x.alasan_perasaan||'',understanding:Number(x.pemahaman||0),aSelf:x.self_awareness||'',aManage:x.self_management||'',aSocial:x.social_awareness||'',aRelation:x.relationship_skills||'',aDecision:x.responsible_decision_making||'',obstacles:x.hambatan||[],coping:x.cara_mengatasi||'',helpNeed:x.bantuan_dibutuhkan||'',target:x.target_pribadi||'',targetProgress:x.perkembangan_target||'',msgType:x.jenis_pesan_guru||'Tidak ada',msg:x.pesan_guru||''};}
+const banks={
+ self:["Apa hal yang paling kamu pahami dari pembelajaran hari ini? Mengapa?","Bagian mana yang paling menantang bagimu hari ini?","Apa momen hari ini yang membuatmu merasa percaya diri?","Apa satu hal tentang dirimu yang baru kamu sadari setelah pembelajaran hari ini?"],
+ manage:["Apa yang kamu lakukan ketika mengalami kesulitan hari ini?","Ketika mulai kehilangan fokus, apa yang membantumu kembali belajar?","Apa yang kamu lakukan ketika kegiatan tidak berjalan sesuai rencana?","Jika menghadapi kesulitan yang sama lagi, apa yang akan kamu lakukan secara berbeda?"],
+ social:["Apa tindakan teman yang membuatmu merasa terbantu atau dihargai?","Adakah pendapat teman yang berbeda dengan pendapatmu? Apa yang kamu pelajari darinya?","Apa yang kamu lakukan ketika melihat teman membutuhkan bantuan?","Apa hal baik dari salah satu anggota kelompokmu yang kamu sadari hari ini?"],
+ relation:["Apa kontribusi nyata yang kamu berikan kepada kelompok hari ini?","Ketika pendapatmu berbeda dengan teman, bagaimana kalian menyelesaikannya?","Apa komunikasi yang berjalan baik dalam kelompokmu hari ini?","Jika kelompokmu bekerja bersama lagi, apa yang ingin kamu perbaiki?"],
+ decision:["Apa keputusan penting yang kamu atau kelompokmu ambil hari ini? Mengapa?","Jika dapat mengulang kegiatan hari ini, keputusan apa yang ingin kamu ubah?","Apa yang kamu pertimbangkan sebelum mengambil keputusan?","Berdasarkan pengalaman hari ini, keputusan apa yang akan kamu ambil pada pembelajaran berikutnya?"]
+};
+const obstacleOptions=["Memahami materi","Menghubungkan konsep dengan rumus","Melakukan percobaan/tugas","Menyampaikan pendapat","Berdiskusi dengan kelompok","Menjaga fokus","Mengatur waktu","Kurang percaya diri","Tidak ada hambatan","Lainnya"];
+let current={}; let chosen={emotion:'',understanding:0}; let step=1;
+function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function startReflection(){const name=sName.value.trim(), no=sNo.value.trim(); if(!name||!no){alert('Isi nama dan nomor absen terlebih dahulu.');return;} current={name,klass:sClass.value,no,subject:sSubject.value.trim()||'IPA',date:new Date().toISOString().slice(0,10)}; studentMini.textContent=`${name} • ${current.klass}`; pickQuestions(); renderObstacles(); chosen={emotion:'',understanding:0};document.querySelectorAll('.emo,.scale button').forEach(b=>b.classList.remove('selected')); emotionWhy.value=''; ['aSelf','aManage','aSocial','aRelation','aDecision','coping','helpNeed','target','teacherMsg'].forEach(id=>document.getElementById(id).value=''); teacherMsgType.value='Tidak ada'; loadPrevTarget(); go('student-reflect'); nextStep(1);}
+function pickQuestions(){const seed=(new Date().getDate()+Number(current.no||0)); const pick=(arr,off)=>arr[(seed+off)%arr.length]; qSelf.textContent=pick(banks.self,0); qManage.textContent=pick(banks.manage,1); qSocial.textContent=pick(banks.social,2); qRelation.textContent=pick(banks.relation,3); qDecision.textContent=pick(banks.decision,4);}
+function nextStep(n){step=n;document.querySelectorAll('.step').forEach(s=>s.classList.add('hidden'));document.getElementById('step'+n).classList.remove('hidden');stepText.textContent=`Langkah ${n} dari 7`;prog.style.width=(n/7*100)+'%';window.scrollTo({top:0,behavior:'smooth'});}
+document.querySelectorAll('.emo').forEach(b=>b.onclick=()=>{document.querySelectorAll('.emo').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');chosen.emotion=b.dataset.v;});
+document.querySelectorAll('.scale button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.scale button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');chosen.understanding=Number(b.dataset.v);});
+function renderObstacles(){obstacles.innerHTML=obstacleOptions.map((o,i)=>`<label class="check"><input type="checkbox" value="${o}"/> ${o}</label>`).join('');}
+function keyStudent(){return `${current.name}|${current.klass}|${current.no}`.toLowerCase()}
+function loadAll(){return JSON.parse(localStorage.getItem('rr_data')||'[]')}
+function saveAll(a){localStorage.setItem('rr_data',JSON.stringify(a))}
+function loadPrevTarget(){const a=loadAll().filter(x=>x.studentKey===keyStudent()).sort((a,b)=>b.ts-a.ts); if(a[0]?.target){prevTargetBox.classList.remove('hidden');prevTarget.textContent=a[0].target}else prevTargetBox.classList.add('hidden')}
+async function submitReflection(){
+  if(!chosen.emotion||!chosen.understanding){alert('Lengkapi check-in perasaan dan skala pemahaman.');nextStep(1);return;}
+  const obs=[...document.querySelectorAll('#obstacles input:checked')].map(x=>x.value);
+  const rec={...current,studentKey:keyStudent(),ts:Date.now(),emotion:chosen.emotion,emotionWhy:emotionWhy.value,understanding:chosen.understanding,qSelf:qSelf.textContent,aSelf:aSelf.value,qManage:qManage.textContent,aManage:aManage.value,qSocial:qSocial.textContent,aSocial:aSocial.value,qRelation:qRelation.textContent,aRelation:aRelation.value,qDecision:qDecision.textContent,aDecision:aDecision.value,obstacles:obs,coping:coping.value,helpNeed:helpNeed.value,target:target.value,targetProgress:targetProgress.value,msgType:teacherMsgType.value,msg:teacherMsg.value};
+  try{
+    await sbFetch('/rest/v1/reflections',{method:'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify(toDb(rec))});
+    const local=loadAll(); local.push(rec); saveAll(local);
+    doneEmotion.textContent=rec.emotion;doneUnderstand.textContent=rec.understanding+'/5';doneObstacle.textContent=rec.obstacles.slice(0,2).join(', ')||'Tidak ada';doneTarget.textContent=rec.target||'Belum ditulis';go('student-done');
+  }catch(e){alert('Refleksi belum berhasil dikirim. Periksa koneksi internet lalu coba lagi.\n\n'+e.message);}
+}
+function showStudentJourney(){const arr=loadAll().filter(x=>x.studentKey===keyStudent()).sort((a,b)=>b.ts-a.ts);journeyStats.innerHTML=`<div class="stat"><div class="k">Jumlah jurnal</div><div class="v">${arr.length}</div></div><div class="stat"><div class="k">Rata-rata pemahaman</div><div class="v">${arr.length?(arr.reduce((s,x)=>s+x.understanding,0)/arr.length).toFixed(1):'-'}</div></div><div class="stat"><div class="k">Perasaan terakhir</div><div class="v" style="font-size:18px">${arr[0]?.emotion||'-'}</div></div><div class="stat"><div class="k">Target terakhir</div><div class="v" style="font-size:16px">${arr[0]?.target||'-'}</div></div>`;journeyTimeline.innerHTML=arr.map(x=>`<div class="timeline-item"><b>${x.date} • ${x.subject}</b><div class="small" style="margin:4px 0">${x.emotion} • Pemahaman ${x.understanding}/5</div><div><b>Hambatan:</b> ${x.obstacles.join(', ')||'Tidak ada'}</div><div><b>Target:</b> ${x.target||'-'}</div></div>`).join('')||'<div class="sub">Belum ada riwayat.</div>';go('student-journey');}
+async function teacherLogin(){
+  const email=teacherEmail.value.trim(), password=teacherPassword.value;
+  if(!email||!password){teacherLoginStatus.textContent='Isi email dan password guru.';return;}
+  teacherLoginStatus.textContent='Memeriksa akun...';
+  try{
+    const data=await sbFetch('/auth/v1/token?grant_type=password',{method:'POST',body:JSON.stringify({email,password})});
+    teacherAccessToken=data.access_token; sessionStorage.setItem('rr_teacher_token',teacherAccessToken);
+    teacherPassword.value='';teacherLoginStatus.textContent='';go('teacher');await renderDashboard();
+  }catch(e){teacherLoginStatus.textContent='Email atau password tidak sesuai.';}
+}
+function teacherLogout(){teacherAccessToken='';sessionStorage.removeItem('rr_teacher_token');go('home');}
+let dashboardData=[];
+function filteredData(){let d=dashboardData;if(fClass.value!=='Semua kelas')d=d.filter(x=>x.klass===fClass.value);if(fSubject.value!=='Semua mapel')d=d.filter(x=>x.subject===fSubject.value);return d;}
+async function fetchDashboardData(){
+  if(!teacherAccessToken) throw new Error('Sesi guru belum aktif');
+  const rows=await sbFetch('/rest/v1/reflections?select=*&order=created_at.desc',{auth:true});
+  dashboardData=(rows||[]).map(fromDb);
+}
+const emoColors={'Sangat nyaman':'#60a5fa','Nyaman':'#34d399','Biasa saja':'#fbbf24','Kesulitan':'#fb7185','Sangat kesulitan':'#a78bfa'};
+async function renderDashboard(){try{await fetchDashboardData();}catch(e){alert('Dashboard tidak dapat memuat data. Silakan login ulang.');teacherLogout();return;}const d=filteredData(); const n=d.length; const avg=n?d.reduce((s,x)=>s+x.understanding,0)/n:0; const counts={}; d.forEach(x=>counts[x.emotion]=(counts[x.emotion]||0)+1); const dominant=Object.entries(counts).sort((a,b)=>b[1]-a[1])[0]?.[0]||'-'; const follow=d.filter(x=>x.msgType&&x.msgType!=='Tidak ada');teacherStats.innerHTML=`<div class="stat"><div class="k">👥 Refleksi masuk</div><div class="v">${n}</div><div class="hint">sesuai filter</div></div><div class="stat"><div class="k">🧠 Persepsi pemahaman</div><div class="v">${n?avg.toFixed(1):'-'}/5</div><div class="hint">rata-rata self-rating</div></div><div class="stat"><div class="k">🙂 Kondisi dominan</div><div class="v" style="font-size:20px">${dominant}</div></div><div class="stat"><div class="k">🔔 Perlu ditindaklanjuti</div><div class="v">${follow.length}</div></div>`; renderEmotion(d);renderObstacle(d);renderUnderstanding(d);renderTrend(d);renderCases(d);renderInsight(d);renderFollow(d);renderIndividuals(d);}
+function renderEmotion(d){const total=d.length||1;const names=['Sangat nyaman','Nyaman','Biasa saja','Kesulitan','Sangat kesulitan'];let start=0;const seg=[];names.forEach(n=>{const c=d.filter(x=>x.emotion===n).length,p=c/total*100;seg.push(`${emoColors[n]} ${start}% ${start+p}%`);start+=p;});emotionChart.innerHTML=`<div class="donut" style="background:conic-gradient(${seg.join(',')})"></div><div class="legend">${names.map(n=>`<div class="legend-row"><span class="dot" style="background:${emoColors[n]}"></span><span>${n}: <b>${d.filter(x=>x.emotion===n).length}</b></span></div>`).join('')}</div>`;}
+function renderObstacle(d){const c={};obstacleOptions.forEach(o=>c[o]=0);d.forEach(x=>(x.obstacles||[]).forEach(o=>c[o]=(c[o]||0)+1));const arr=Object.entries(c).filter(([k])=>k!=='Tidak ada hambatan').sort((a,b)=>b[1]-a[1]).slice(0,7);const max=Math.max(1,...arr.map(x=>x[1]));obstacleChart.innerHTML=arr.map(([k,v])=>`<div class="bar-row"><span>${k}</span><div class="bar-bg"><div class="bar-fill" style="width:${v/max*100}%"></div></div><b class="num">${v}</b></div>`).join('')||'<div class="sub">Belum ada data.</div>';}
+function renderUnderstanding(d){const c=[1,2,3,4,5].map(v=>[v,d.filter(x=>x.understanding===v).length]);const max=Math.max(1,...c.map(x=>x[1]));understandingChart.innerHTML=c.map(([k,v])=>`<div class="bar-row"><span>Skala ${k}</span><div class="bar-bg"><div class="bar-fill" style="width:${v/max*100}%"></div></div><b class="num">${v}</b></div>`).join('');}
+function renderTrend(d){const by={};d.forEach(x=>{(by[x.date]??=[]).push(x.understanding)});const dates=Object.keys(by).sort().slice(-8);if(!dates.length){trendChart.innerHTML='<div class="sub">Belum ada data.</div>';return;}const vals=dates.map(dt=>by[dt].reduce((a,b)=>a+b,0)/by[dt].length);const W=520,H=190,p=28;const pts=vals.map((v,i)=>{const x=p+(W-2*p)*(i/(Math.max(1,vals.length-1)));const y=H-p-(H-2*p)*((v-1)/4);return [x,y]});trendChart.innerHTML=`<svg class="line-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><line x1="${p}" y1="${H-p}" x2="${W-p}" y2="${H-p}" stroke="#d1d5db"/><line x1="${p}" y1="${p}" x2="${p}" y2="${H-p}" stroke="#d1d5db"/>${[1,2,3,4,5].map(v=>{const y=H-p-(H-2*p)*((v-1)/4);return `<text x="6" y="${y+4}" font-size="11" fill="#6b7280">${v}</text>`}).join('')}<polyline points="${pts.map(p=>p.join(',')).join(' ')}" fill="none" stroke="#6366f1" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>${pts.map((q,i)=>`<circle cx="${q[0]}" cy="${q[1]}" r="5" fill="#6366f1"/><text x="${q[0]}" y="${H-7}" text-anchor="middle" font-size="10" fill="#6b7280">${dates[i].slice(5)}</text>`).join('')}</svg>`;}
+function keywords(text){const stop=['yang','dan','di','ke','dari','saya','aku','karena','untuk','dengan','lebih','hari','ini','bisa','ada','jadi','ketika','teman','kami','kelompok'];const words=(text||'').toLowerCase().replace(/[^a-zA-ZÀ-ÿ0-9\s]/g,' ').split(/\s+/).filter(w=>w.length>3&&!stop.includes(w));const c={};words.forEach(w=>c[w]=(c[w]||0)+1);return Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,3).map(x=>x[0]);}
+function renderCases(d){const defs=[['🪞 Mengenal Diriku','aSelf'],['🌱 Mengelola Diriku','aManage'],['💙 Memahami Orang Lain','aSocial'],['🤝 Bertumbuh Bersama','aRelation'],['🧭 Menentukan Langkah','aDecision']];caseSummary.innerHTML=defs.map(([title,key])=>{const ks=keywords(d.map(x=>x[key]).join(' '));return `<div class="case-card"><b>${title}</b><p>${ks.length?'Tema yang sering muncul: '+ks.join(', ')+'.':'Belum cukup data untuk merangkum tema.'}</p></div>`}).join('');}
+function renderInsight(d){if(!d.length){insightText.innerHTML='<p class="sub">Belum ada data.</p>';return;}const oc={};d.forEach(x=>(x.obstacles||[]).forEach(o=>{if(o!=='Tidak ada hambatan')oc[o]=(oc[o]||0)+1}));const top=Object.entries(oc).sort((a,b)=>b[1]-a[1])[0];const need=d.filter(x=>x.msgType&&x.msgType!=='Tidak ada').length;const copingKeys=keywords(d.map(x=>x.coping).join(' '));insightText.innerHTML=`<p><b>Hambatan dominan:</b> ${top?`${top[0]} (${top[1]} siswa)`:'tidak ada pola dominan'}.</p><p><b>Permintaan dukungan:</b> ${need} siswa.</p><p><b>Strategi yang sering muncul:</b> ${copingKeys.join(', ')||'belum cukup data'}.</p><p><b>Saran tindak lanjut:</b> lakukan penguatan singkat pada hambatan dominan dan cek kembali siswa yang meminta bantuan sebelum pembelajaran berikutnya.</p><div class="small">Ringkasan otomatis berbasis kata kunci; bukan diagnosis.</div>`;}
+function renderFollow(d){const f=d.filter(x=>x.msgType&&x.msgType!=='Tidak ada').sort((a,b)=>b.ts-a.ts);followups.innerHTML=f.slice(0,8).map(x=>`<div class="student-row"><div><b>${x.name}</b><div class="small">${x.klass} • ${x.msgType}</div></div><span class="tag">Tindak lanjut</span></div>`).join('')||'<div class="sub">Belum ada permintaan dukungan.</div>';}
+let individualCache=[];
+function renderIndividuals(d){
+  const latest={};
+  [...d].sort((a,b)=>b.ts-a.ts).forEach(x=>{if(!latest[x.studentKey])latest[x.studentKey]=x});
+  individualCache=Object.values(latest);
+  individuals.innerHTML=individualCache.map((x,i)=>`<div class="student-row"><div><b>${x.name}</b><div class="small">${x.klass} • ${x.date} • Pemahaman ${x.understanding}/5</div></div><button type="button" class="btn ghost" onclick="showIndividualAt(${i})">Lihat</button></div>`).join('')||'<div class="sub">Belum ada data siswa.</div>';
+}
+function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+function showIndividualAt(i){
+  const x=individualCache[i];
+  if(!x) return;
+  detailName.textContent=x.name||'Refleksi Siswa';
+  detailMeta.textContent=`${x.klass||'-'} • No. ${x.no||'-'} • ${x.subject||'-'} • ${x.date||'-'}`;
+  const item=(label,value,full=false)=>`<div class="detail-item${full?' full':''}"><b>${label}</b><div>${esc(value||'-')}</div></div>`;
+  detailBody.innerHTML=
+    item('Perasaan',x.emotion)+item('Persepsi pemahaman',(x.understanding||'-')+'/5')+
+    item('Alasan perasaan',x.emotionWhy,true)+
+    item('🪞 Mengenal Diriku',x.aSelf,true)+item('🌱 Mengelola Diriku',x.aManage,true)+
+    item('💙 Memahami Orang Lain',x.aSocial,true)+item('🤝 Bertumbuh Bersama',x.aRelation,true)+
+    item('🧭 Menentukan Langkah',x.aDecision,true)+
+    item('Hambatan',(x.obstacles||[]).join(', ')||'Tidak ada',true)+
+    item('Cara mengatasi hambatan',x.coping,true)+item('Bantuan yang dibutuhkan',x.helpNeed,true)+
+    item('Target berikutnya',x.target,true)+item('Perkembangan target',x.targetProgress,true)+
+    item('Pesan untuk guru',`${x.msgType||'Tidak ada'}${x.msg?' — '+x.msg:''}`,true);
+  individualModal.classList.add('open');
+}
+function closeIndividual(){individualModal.classList.remove('open');}
+async function seedDemoData(){
+  if(!teacherAccessToken){alert('Login guru terlebih dahulu.');return;}
+  const names=['Aulia','Bima','Citra','Daffa','Eka','Fani','Gilang','Hana'];const emotions=['Nyaman','Nyaman','Sangat nyaman','Biasa saja','Kesulitan'];const obs=['Menghubungkan konsep dengan rumus','Memahami materi','Menjaga fokus','Berdiskusi dengan kelompok','Menyampaikan pendapat'];const dates=['2026-09-15','2026-09-22','2026-09-29','2026-10-06'];
+  const rows=[];names.forEach((name,i)=>dates.forEach((date,j)=>{rows.push(toDb({name,klass:i%2?'VIII B':'VIII A',no:i+1,subject:'IPA',date,emotion:emotions[(i+j)%emotions.length],emotionWhy:'Pembelajaran cukup menarik dan saya bisa mengikuti kegiatan.',understanding:Math.min(5,2+((i+j)%4)),aSelf:'Saya lebih memahami konsep setelah melihat contoh dan berdiskusi.',aManage:'Saya mencoba lagi dan bertanya ketika bingung.',aSocial:'Teman membantu menjelaskan bagian yang belum saya pahami.',aRelation:'Kami membagi tugas dan saling mendengarkan.',aDecision:'Kelompok memilih mencoba ulang langkah percobaan agar hasil lebih jelas.',obstacles:i%4===0?[obs[(i+j)%obs.length],obs[(i+j+1)%obs.length]]:[obs[(i+j)%obs.length]],coping:i%3===0?'Bertanya kepada teman dan guru':'Mencoba kembali dan berdiskusi',helpNeed:i%5===0?'Penjelasan ulang contoh rumus':'',target:'Lebih berani bertanya ketika belum paham',targetProgress:'Mulai berkembang',msgType:i%7===0?'Saya membutuhkan bantuan memahami materi':'Tidak ada',msg:i%7===0?'Saya masih bingung menghubungkan konsep dengan rumus.':''}) )}));
+  try{await sbFetch('/rest/v1/reflections',{method:'POST',auth:true,headers:{Prefer:'return=minimal'},body:JSON.stringify(rows)});await renderDashboard();alert('Data demo berhasil ditambahkan ke database Supabase.');}catch(e){alert('Data demo gagal ditambahkan: '+e.message);}
+}
+</script>
+</body>
+</html>
